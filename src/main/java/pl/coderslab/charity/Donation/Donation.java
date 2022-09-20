@@ -22,7 +22,10 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int quantity;
+    @OneToMany(mappedBy = "donations", fetch = FetchType.LAZY)
     private List<Category> categories;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="institution_id", nullable = false)
     private Institution institution;
     private String street;
     private String city;
@@ -30,4 +33,8 @@ public class Donation {
     private LocalDate pickUpDate;
     private LocalTime pickUpTime;
     private String pickUpComment;
+
+    public Donation() {
+
+    }
 }
