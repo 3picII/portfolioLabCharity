@@ -20,5 +20,5 @@
         </div>
     </div>
 </footer>
-
-<script src="<c:url value="resources/js/app.js"/>"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/app.js"></script>--%>
+<%--<script src="<c:url value="resources/js/app.js"/>"></script>--%>

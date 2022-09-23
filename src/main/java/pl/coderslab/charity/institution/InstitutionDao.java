@@ -1,4 +1,4 @@
-package pl.coderslab.charity.Institution;
+package pl.coderslab.charity.institution;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ public class InstitutionDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Institution findById (long id){
+    public Institution findById (int id){
         return entityManager.find(Institution.class, id);
     }
 

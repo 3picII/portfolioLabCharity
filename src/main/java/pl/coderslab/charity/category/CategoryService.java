@@ -1,4 +1,4 @@
-package pl.coderslab.charity.Category;
+package pl.coderslab.charity.category;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,23 +12,23 @@ import java.util.List;
 public class CategoryService {
     private final CategoryDao categoryDao;
 
-    public Category findById(long id){
+    public Category findById(long id) {
         return categoryDao.findById(id);
     }
 
-    public List<Category> findAll(){
+    public List<Category> findAll() {
         return categoryDao.findAll();
     }
 
-    public void saveCategory(Category category){
+    public void saveCategory(Category category) {
         categoryDao.saveCategory(category);
     }
 
-    public void deleteCategory(Category category){
+    public void deleteCategory(Category category) {
         categoryDao.deleteCategory(category);
     }
 
-    public void updateCategory(Category category){
+    public void updateCategory(Category category) {
         categoryDao.updateCategory(category);
     }
 }

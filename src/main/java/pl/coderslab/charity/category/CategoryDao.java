@@ -1,4 +1,4 @@
-package pl.coderslab.charity.Category;
+package pl.coderslab.charity.category;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,24 +14,24 @@ public class CategoryDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Category findById (long id){
+    public Category findById(long id) {
         return entityManager.find(Category.class, id);
     }
 
-    public List<Category> findAll(){
+    public List<Category> findAll() {
         Query query = entityManager.createQuery("select c from Category c");
         return query.getResultList();
     }
 
-    public void saveCategory(Category category){
+    public void saveCategory(Category category) {
         entityManager.persist(category);
     }
 
-    public void deleteCategory(Category category){
+    public void deleteCategory(Category category) {
         entityManager.remove(entityManager.contains(category) ? category : entityManager.merge(category));
     }
 
-    public void updateCategory(Category category){
+    public void updateCategory(Category category) {
         entityManager.merge(category);
     }
 }

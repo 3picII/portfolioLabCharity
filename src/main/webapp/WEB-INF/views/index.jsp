@@ -21,7 +21,7 @@
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>13</em>
+            <em>${bagsNum}</em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -29,7 +29,8 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+<%--            <em>5</em>--%>
+            <em>${donationsNum}</em>
             <h3>Przekazanych darów</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -112,12 +113,20 @@
             </li>
 
         </ul>
+        <ul class="help--slides-items">
+            <c:forEach items="${instList}" var="institution">
+                <li class="col">
+                    <div class="title">${institution.name}</div>
+                    <div class="subtitle">${institution.description}</div>
+                </li>
+            </c:forEach>
+        </ul>
     </div>
 
 </section>
 
 <%@ include file="footer.jsp"%>
-
-<script src="<c:url value="resources/js/app.js"/>"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}resources/js/app.js"></script>
+<%--<script src="<c:url value="resources/js/app.js"/>"></script>--%>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package pl.coderslab.charity.Institution;
+package pl.coderslab.charity.institution;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
 public class InstitutionService {
     private final InstitutionDao institutionDao;
 
-    public Institution findById(long id){
+    public Institution findById(int id){
         return institutionDao.findById(id);
     }
 

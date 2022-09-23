@@ -1,9 +1,9 @@
-package pl.coderslab.charity.Donation;
+package pl.coderslab.charity.donation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import pl.coderslab.charity.Category.Category;
-import pl.coderslab.charity.Institution.Institution;
+import pl.coderslab.charity.category.Category;
+import pl.coderslab.charity.institution.Institution;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,16 +16,16 @@ import java.util.List;
 @Data
 public class Donation {
 
-    final static String TABLE_NAME="donations";
+    final static String TABLE_NAME = "donations";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int quantity;
-    @OneToMany(mappedBy = "donations", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "donation", fetch = FetchType.LAZY)
     private List<Category> categories;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="institution_id", nullable = false)
+    @JoinColumn(name = "institution_id", nullable = false)
     private Institution institution;
     private String street;
     private String city;
@@ -36,5 +36,10 @@ public class Donation {
 
     public Donation() {
 
+    }
+
+    public Donation(int quantity, Institution institution) {
+        this.quantity = quantity;
+        this.institution = institution;
     }
 }

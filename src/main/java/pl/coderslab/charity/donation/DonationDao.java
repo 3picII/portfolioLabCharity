@@ -1,4 +1,4 @@
-package pl.coderslab.charity.Donation;
+package pl.coderslab.charity.donation;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,24 +14,24 @@ public class DonationDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Donation findById (long id){
+    public Donation findById(long id) {
         return entityManager.find(Donation.class, id);
     }
 
-    public List<Donation> findAll(){
+    public List<Donation> findAll() {
         Query query = entityManager.createQuery("select d from Donation d");
         return query.getResultList();
     }
 
-    public void saveDonation(Donation donation){
+    public void saveDonation(Donation donation) {
         entityManager.persist(donation);
     }
 
-    public void deleteDonation(Donation donation){
+    public void deleteDonation(Donation donation) {
         entityManager.remove(entityManager.contains(donation) ? donation : entityManager.merge(donation));
     }
 
-    public void updateDonation(Donation donation){
+    public void updateDonation(Donation donation) {
         entityManager.merge(donation);
     }
 }
