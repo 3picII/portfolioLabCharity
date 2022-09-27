@@ -13,7 +13,6 @@
     <style>
         <%@include file="/resources/css/style.css" %>
     </style>
-<%--    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>--%>
 </head>
 <body>
 <%@ include file="header.jsp" %>

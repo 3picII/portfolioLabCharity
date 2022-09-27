@@ -22,7 +22,12 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int quantity;
-    @OneToMany(mappedBy = "donation", fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "donation", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "donation_category",
+            joinColumns = {@JoinColumn(name = "donation_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
     private List<Category> categories;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "institution_id", nullable = false)

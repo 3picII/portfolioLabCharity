@@ -1,5 +1,6 @@
 package pl.coderslab.charity.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import pl.coderslab.charity.donation.Donation;
@@ -18,10 +19,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-
-    @ManyToOne
-    private Donation donation;
-
     public Category() {
 
     }
