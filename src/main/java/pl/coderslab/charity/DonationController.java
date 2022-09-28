@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.category.Category;
+import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.donation.Donation;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,17 +23,28 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class DonationController {
+    private final CategoryService categoryService;
     private final InstitutionService institutionService;
     Donation donation = new Donation();
 
     @GetMapping("/form1")
-    public String form1(){
+    public String form1(Model model){
+//        Category category1 = new Category();
+//        category1.setName("alkohol");
+//        categoryService.saveCategory(category1);
+        List<Category> categoryList = new ArrayList<>();
+        model.addAttribute("catList", categoryList);
+        model.addAttribute("donation",new Donation());
+        model.addAttribute("category",new Category());
+        model.addAttribute("categories1",categoryService.findAll());
         return "form1";
     }
     @PostMapping("/form1")
-    public String form1(@RequestParam(name="category_toys") boolean toys){
-
-
+    public String form1(@ModelAttribute("donation")Donation donation1, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "error";
+        }
+        System.out.println(donation1);
         return "redirect:/form2";
     }
 
@@ -53,10 +66,12 @@ public class DonationController {
     }
 
     @PostMapping("/form3")
-    public String form33(@ModelAttribute("institution") Institution institution, BindingResult bindingResult, Model model){
+    public String form3(@ModelAttribute("institution") Institution institution, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "error";
         }
+        String name = institution.getName();
+        donation.setInstitution(institutionService.findByName(name));
         System.out.println(institution);
         return "redirect:/form4";
     }

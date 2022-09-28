@@ -23,6 +23,12 @@ public class InstitutionDao {
         return query.getResultList();
     }
 
+    public Institution findByName (String name){
+        return (Institution) entityManager.createQuery("select i from Institution i where i.name = :name")
+                .setParameter("name",name)
+                .getSingleResult();
+    }
+
     public void saveInstitution(Institution institution){
         entityManager.persist(institution);
     }

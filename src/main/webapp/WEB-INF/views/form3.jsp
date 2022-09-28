@@ -19,8 +19,8 @@
 <%@ include file="header.jsp" %>
 <h2>
 <form:form modelAttribute="institution" method="post" action="form3">
-    <form:select path="name">
-        <form:options items="${institutions}"/>
+    <form:select path="name" items="${institutions}">
+<%--        <form:options items="${institutions}"/>--%>
     </form:select>
     <input type="button" value="Wstecz" onclick="history.back()">
     <input type="submit" value="Dalej">

@@ -21,6 +21,10 @@ public class InstitutionService {
         return institutionDao.findAll();
     }
 
+    public Institution findByName(String name){
+        return institutionDao.findByName(name);
+    }
+
     public void saveInstitution(Institution institution){
         institutionDao.saveInstitution(institution);
     }
