@@ -15,6 +15,7 @@ import pl.coderslab.charity.donation.Donation;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,17 +35,18 @@ public class DonationController {
 //        categoryService.saveCategory(category1);
         List<Category> categoryList = new ArrayList<>();
         model.addAttribute("catList", categoryList);
-        model.addAttribute("donation",new Donation());
+        model.addAttribute("donation",donation);
         model.addAttribute("category",new Category());
         model.addAttribute("categories1",categoryService.findAll());
         return "form1";
     }
     @PostMapping("/form1")
-    public String form1(@ModelAttribute("donation")Donation donation1, BindingResult bindingResult){
+    public String form1(@ModelAttribute("donation") @Valid Donation donation1, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "error";
         }
         System.out.println(donation1);
+        donation.setCategories(donation1.getCategories());
         return "redirect:/form2";
     }
 
@@ -55,6 +57,7 @@ public class DonationController {
     @PostMapping("/form2")
     public String form2(@RequestParam(name="quantity") int quantity){
         donation.setQuantity(quantity);
+        System.out.println(donation);
         return "redirect:/form3";
     }
 
