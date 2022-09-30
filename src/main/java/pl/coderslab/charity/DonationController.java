@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.donation.Donation;
+import pl.coderslab.charity.donation.DonationService;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 public class DonationController {
     private final CategoryService categoryService;
     private final InstitutionService institutionService;
+    private final DonationService donationService;
     Donation donation = new Donation();
 
     @GetMapping("/form1")
@@ -41,10 +45,7 @@ public class DonationController {
         return "form1";
     }
     @PostMapping("/form1")
-    public String form1(@ModelAttribute("donation") @Valid Donation donation1, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "error";
-        }
+    public String form1(@ModelAttribute("donation") @Valid Donation donation1){
         System.out.println(donation1);
         donation.setCategories(donation1.getCategories());
         return "redirect:/form2";
@@ -75,17 +76,25 @@ public class DonationController {
         }
         String name = institution.getName();
         donation.setInstitution(institutionService.findByName(name));
-        System.out.println(institution);
+        System.out.println(donation);
         return "redirect:/form4";
     }
 
     @GetMapping("/form4")
     public String form4(Model model){
-        model.addAttribute("institutions",institutions());
         return "form4";
     }
     @PostMapping("/form4")
-    public String form4(){
+    public String form4(@RequestParam(name="street")String street, @RequestParam(name="city")String city, @RequestParam(name = "zip_code")String zipCode,
+                        @RequestParam(name="date")String date, @RequestParam(name="hour")String hour, @RequestParam(name="comment")String comment){
+        donation.setStreet(street);
+        donation.setCity(city);
+        donation.setZipCode(zipCode);
+        donation.setPickUpDate(LocalDate.parse(date));
+        donation.setPickUpTime(LocalTime.parse(hour));
+        donation.setPickUpComment(comment);
+        donationService.saveDonation(donation);
+        System.out.println(donation);
         return "x";
     }
 

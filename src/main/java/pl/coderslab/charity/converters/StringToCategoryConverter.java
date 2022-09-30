@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import pl.coderslab.charity.category.Category;

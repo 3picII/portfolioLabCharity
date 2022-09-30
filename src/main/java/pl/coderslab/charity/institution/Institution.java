@@ -22,4 +22,9 @@ public class Institution {
     public Institution() {
 
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
 }
