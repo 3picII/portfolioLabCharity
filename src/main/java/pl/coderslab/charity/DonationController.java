@@ -15,6 +15,8 @@ import pl.coderslab.charity.donation.Donation;
 import pl.coderslab.charity.donation.DonationService;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
+import pl.coderslab.charity.user.User;
+import pl.coderslab.charity.user.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -30,6 +32,8 @@ public class DonationController {
     private final CategoryService categoryService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
+    private final UserService userService;
+    User user = new User();
     Donation donation = new Donation();
 
     @GetMapping("/form1")
@@ -95,7 +99,48 @@ public class DonationController {
         donation.setPickUpComment(comment);
         donationService.saveDonation(donation);
         System.out.println(donation);
-        return "x";
+        return "redirect:/form5";
+    }
+
+    @GetMapping("/form5")
+    public String form5(){
+        return "form5";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model){
+        model.addAttribute("user",user);
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute("user")User user1, @RequestParam(name = "password1")String password1){
+        user.setName(user1.getName());
+        user.setSurname(user1.getSurname());
+        user.setEmail(user1.getEmail());
+        if(checkPassword(user1.getPassword(),password1).equals("error")){
+            return "register";
+        }else{
+            user.setPassword(user1.getPassword());
+            userService.saveUser(user);
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("user",user);
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute("user")User user1){
+        User user2 = userService.findByEmail(user1.getEmail());
+        if (user2.getPassword().equals(user1.getPassword())){
+            return "redirect:/";
+        }else{
+            return "login";
+        }
     }
 
     @ModelAttribute("institutions")
@@ -106,4 +151,11 @@ public class DonationController {
 //    public List<Category> listMaker(boolean cat1, boolean cat2, boolean cat3, boolean cat4, boolean cat5){
 //
 //    }
+    public String checkPassword(String pass1, String pass2){
+        if(pass1.equals(pass2))
+        {
+            return pass1;
+        }
+        return "error";
+    }
 }
